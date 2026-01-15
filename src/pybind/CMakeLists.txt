@@ -28,11 +28,13 @@ target_compile_options(${PYMODULE_NAME} PRIVATE
 # Copied from https://stackoverflow.com/a/77456943/16569836
 find_program(Python_Executable python)
 if(Python_Executable)
-    set(Stubgen_Executable "${Python_Executable} -m mypy.stubgen")
+    set(Stubgen_Executable ${Python_Executable})
+    set(Stubgen_Args -m mypy.stubgen)
     message(STATUS "Using mypy.stubgen for type stub generation")
 else()
     find_program(Stubgen_Executable stubgen)
     if(Stubgen_Executable)
+        set(Stubgen_Args "")
         message(STATUS "Using system stubgen for type stub generation")
     else()
         message(WARNING "No stubgen tool found, skipping type stub generation")
@@ -42,7 +44,7 @@ endif()
 
 if(Stubgen_Executable)
     add_custom_command(TARGET ${PYMODULE_NAME} POST_BUILD
-        COMMAND ${Stubgen_Executable} ${PYMODULE_NAME} -o .
+        COMMAND ${Stubgen_Executable} ${Stubgen_Args} ${PYMODULE_NAME} -o .
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Generate .pyi files for IDE support"
     )
