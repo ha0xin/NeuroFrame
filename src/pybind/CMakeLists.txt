@@ -46,3 +46,4 @@ if(Stubgen_Executable)
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Generate .pyi files for IDE support"
     )
+endif()
