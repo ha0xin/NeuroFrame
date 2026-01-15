@@ -3,6 +3,8 @@
 #include "src/utils/cuda_utils.h"
 #include "src/basic/log.h"
 
+#include <cstdint>
+
 namespace NeuroFrame {
 
 CUDAMemPool::CUDAMemPool(const Device device) : AbstractMemPool(device) {
