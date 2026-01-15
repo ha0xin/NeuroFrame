@@ -12,7 +12,7 @@ namespace NeuroFrame::Backend::CPU {
 	[&]() { \
 		switch (dtype) { \
 			case dtype_t::FLOAT16: \
-				{typedef half T; return call;} \
+				throw std::runtime_error("CPU backend does not support FLOAT16 (half). Please cast to FLOAT32 or use CUDA backend."); \
 			case dtype_t::FLOAT32: \
 				{typedef float T; return call;} \
 			case dtype_t::FLOAT64: \
